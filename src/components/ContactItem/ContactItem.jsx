@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import css from './ContactItem.module.css'
 
 export class ContactItem extends Component {
 
@@ -12,9 +13,9 @@ export class ContactItem extends Component {
     const { name, number } = this.props;
     return (
       <>
-        <li>
+        <li className={css.item} >
           {name}: {number}
-          <button type="button" onClick={this.handleDelete}>
+          <button className={css.button} type="button" onClick={this.handleDelete}>
             Delete
           </button>
         </li>
