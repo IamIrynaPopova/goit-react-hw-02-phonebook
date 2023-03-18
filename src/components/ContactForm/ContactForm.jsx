@@ -11,11 +11,15 @@ export class ContactForm extends Component {
 
   addContact = e => {
     e.preventDefault();
-    this.props.createUser({
-      id: nanoid(),
-      name: this.state.name,
-      number: this.state.number,
-    });
+    if (this.props.contacts.find(contact => contact.name === this.state.name)) {
+      e.target.name.form[0].value = '';
+      return alert(`${this.state.name} is already in contacts`);
+    } else
+      this.props.createUser({
+        id: nanoid(),
+        name: this.state.name,
+        number: this.state.number,
+      });
   };
 
   handleChange = ({ target }) => {
