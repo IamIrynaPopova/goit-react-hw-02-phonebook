@@ -20,6 +20,7 @@ export class ContactForm extends Component {
         name: this.state.name,
         number: this.state.number,
       });
+    e.target.reset();
   };
 
   handleChange = ({ target }) => {
