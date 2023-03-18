@@ -4,27 +4,22 @@ import css from './ContactForm.module.css';
 import PropTypes from 'prop-types';
 
 export class ContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
-  };
-
   addContact = e => {
     e.preventDefault();
-    if (this.props.contacts.find(contact => contact.name === this.state.name)) {
-      e.target.name.form[0].value = '';
-      return alert(`${this.state.name} is already in contacts`);
-    } else
-      this.props.createUser({
-        id: nanoid(),
-        name: this.state.name,
-        number: this.state.number,
-      });
-    e.target.reset();
-  };
-
-  handleChange = ({ target }) => {
-    this.setState({ [target.name]: target.value });
+    const form = e.currentTarget;
+    const name = form.elements.name.value;
+    const number = form.elements.number.value;
+    console.log(name, number);
+    if (this.props.contacts.find(contact => contact.name === name)) {
+      form.elements.name.value = '';
+      return alert(`${name} is already in contacts`);
+    }
+    this.props.createUser({
+      id: nanoid(),
+      name: name,
+      number: number,
+    });
+    form.reset();
   };
 
   render() {
@@ -34,8 +29,6 @@ export class ContactForm extends Component {
           Name
           <input
             className={css.input}
-            onChange={this.handleChange}
-            value={this.state.name}
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -47,8 +40,6 @@ export class ContactForm extends Component {
           Number
           <input
             className={css.input}
-            onChange={this.handleChange}
-            value={this.state.number}
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
