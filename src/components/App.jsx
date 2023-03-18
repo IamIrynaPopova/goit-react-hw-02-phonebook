@@ -15,11 +15,11 @@ export class App extends Component {
   };
 
   createUser = user => {
-    if (this.state.contacts.find(contact => contact.name === user.name)) {
-      alert(`${user.name} is already in contacts`);
+    const { name } = user;
+    if (this.state.contacts.find(contact => contact.name === name)) {
+      alert(`${name} is already in contacts`);
       return;
     }
-
     this.setState(prevState => {
       return { contacts: [...prevState.contacts, user] };
     });
@@ -45,17 +45,15 @@ export class App extends Component {
 
   render() {
     return (
-      <>
-        <div>
-          <h1>Phonebook</h1>
-          <ContactForm createUser={this.createUser} />
-          <Filter filter={this.filter} />
-          <ContactList
-            deleteItem={this.deleteContact}
-            contacts={this.getVisibleFilter()}
-          />
-        </div>
-      </>
+      <div>
+        <h1>Phonebook</h1>
+        <ContactForm createUser={this.createUser} />
+        <Filter filter={this.filter} />
+        <ContactList
+          deleteItem={this.deleteContact}
+          contacts={this.getVisibleFilter()}
+        />
+      </div>
     );
   }
 }
